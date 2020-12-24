@@ -1,0 +1,2 @@
+[![Build Status](https://travis-ci.org/Denis-Sotnikov/job4j_design.svg?branch=master)](https://travis-ci.org/Denis-Sotnikov/job4j_design)
+[![codecov](https://codecov.io/gh/Denis-Sotnikov/job4j_design/branch/master/graph/badge.svg?token=LS9NXI1AWS)](https://codecov.io/gh/Denis-Sotnikov/job4j_design)
