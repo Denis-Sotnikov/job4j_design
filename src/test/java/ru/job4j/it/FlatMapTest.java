@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.Test;
+
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -16,7 +18,7 @@ public class FlatMapTest {
                 List.of(1).iterator(),
                 List.of(2, 3).iterator()
         ).iterator();
-        FlatMap<Integer> flat = new FlatMap<>(data);
+        FlatMap<Integer> flat = new FlatMap<Integer>(data);
         assertThat(flat.next(), is(1));
         assertThat(flat.next(), is(2));
         assertThat(flat.next(), is(3));
