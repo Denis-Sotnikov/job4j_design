@@ -13,7 +13,7 @@ public class SimplyArray<T> implements Iterable {
     }
 
     private void add(T model) {
-        if (index < 5) {
+        if (index < array.length) {
             array[index] = model;
             index++;
         } else {
@@ -28,14 +28,7 @@ public class SimplyArray<T> implements Iterable {
 
     private void remove(int position) {
         Objects.checkIndex(position, index);
-        Object[] arrayFirst = new Object[array.length];
-        Object[] arraySecond = new Object[array.length];
-        Object[] arrayResult = new Object[array.length];
-        System.arraycopy(array, 0, arrayFirst, 0, position);
-        System.arraycopy(array, position + 1, arraySecond, position, array.length - position - 1);
-        System.arraycopy(arrayFirst, 0, arrayResult, 0, position);
-        System.arraycopy(arraySecond, position, arrayResult, position, array.length - position - 1);
-        array = arrayResult;
+        System.arraycopy(array, position + 1, array, position, array.length - position - 1);
         index--;
     }
 
@@ -58,4 +51,17 @@ public class SimplyArray<T> implements Iterable {
             }
         };
     }
+
+//    public static void main(String[] args) {
+//        SimplyArray<Integer> data = new SimplyArray<Integer>(5);
+//        data.add(1);
+//        data.add(2);
+//        data.add(3);
+//        data.add(4);
+//        data.add(5);
+//        data.remove(4);
+//        for (int i = 0; i < data.index; i++) {
+//            System.out.println(data.get(i));
+//        }
+//    }
 }
