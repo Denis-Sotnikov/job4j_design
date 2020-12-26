@@ -63,4 +63,11 @@ public class FlatMapTest {
         FlatMap<Object> flat = new FlatMap<>(data);
         flat.next();
     }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmptyIterator() {
+        Iterator<Iterator<Object>> data = Collections.emptyIterator();
+        FlatMap<Object> flat = new FlatMap<>(data);
+        flat.next();
+    }
 }

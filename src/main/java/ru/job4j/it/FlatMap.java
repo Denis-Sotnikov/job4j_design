@@ -4,7 +4,7 @@ import java.util.*;
 
 public class FlatMap<T> implements Iterator<T> {
     private final Iterator<Iterator<T>> data;
-    private Iterator<T> cursor;
+    private Iterator<T> cursor = Collections.emptyIterator();
 
     public FlatMap(Iterator<Iterator<T>> data) {
         this.data = data;
@@ -12,7 +12,7 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        while (data.hasNext() && !(cursor != null && cursor.hasNext())) {
+        while (!cursor.hasNext() && data.hasNext()) {
                 cursor = data.next();
         }
         return cursor.hasNext();
