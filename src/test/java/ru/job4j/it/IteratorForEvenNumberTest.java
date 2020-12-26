@@ -46,6 +46,12 @@ public class IteratorForEvenNumberTest {
     }
 
     @Test
+    public void  should2ReturnFalseIfNoAnyEvenNumbers() {
+        it = new IteratorForEvenNumber(new int[]{});
+        assertThat(it.hasNext(), is(false));
+    }
+
+    @Test
     public void allNumbersAreEven() {
         it = new IteratorForEvenNumber(new int[] {2, 4, 6, 8});
         assertThat(it.hasNext(), is(true));
