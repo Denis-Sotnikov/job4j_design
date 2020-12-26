@@ -1,12 +1,8 @@
 package ru.job4j.generics;
 
-public class UserStore extends Base implements Store<User> {
+public class UserStore implements Store<User> {
 
     private final Store<User> store = new MemStore<>();
-
-    protected UserStore(String id) {
-        super(id);
-    }
 
     @Override
     public void add(User model) {

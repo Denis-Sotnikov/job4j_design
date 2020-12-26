@@ -13,18 +13,46 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        mem.set(Integer.parseInt(id), model);
-        return true;
+        T flag = mem.set(looking(id), model);
+        return flag != null;
     }
 
     @Override
     public boolean delete(String id) {
-        mem.remove(Integer.parseInt(id));
-        return true;
+        int size1 = mem.size();
+        int point = looking(id);
+        mem.remove(point);
+        int size2 = mem.size();
+        return size1 > size2;
     }
 
     @Override
     public T findById(String id) {
-        return mem.get(Integer.parseInt(id));
+        return mem.get(looking(id));
     }
+
+    private Integer looking(String id) {
+        int indexForObject = -1;
+        boolean flag = false;
+        for (T m : mem) {
+            if (m.getId().equals(id)) {
+                indexForObject = mem.indexOf(m);
+                break;
+            }
+        }
+        return indexForObject;
+    }
+
+    public static void main(String[] args) {
+        RoleStore sd = new RoleStore();
+        sd.add(new Role("1"));
+        sd.add(new Role("2"));
+        sd.add(new Role("3"));
+        System.out.println(sd.findById("3").getId());
+        sd.delete("3");
+        System.out.println(sd.findById("2").getId());
+        System.out.println(sd.replace("2", new Role("5")));
+        System.out.println(sd.findById("5").getId());
+    }
+
 }
