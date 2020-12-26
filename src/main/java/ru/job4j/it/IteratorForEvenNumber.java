@@ -16,10 +16,7 @@ public class IteratorForEvenNumber implements Iterator<Integer> {
         while (point < (array.length - 1) && !(array[point] % 2 == 0)) {
             point++;
         }
-        if (array.length > point) {
-            return array[point] % 2 == 0;
-        }
-        return false;
+        return array.length > point && array[point] % 2 == 0;
     }
 
     @Override
