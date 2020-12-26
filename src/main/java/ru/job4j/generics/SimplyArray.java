@@ -1,6 +1,7 @@
 package ru.job4j.generics;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimplyArray<T> implements Iterable {
@@ -47,6 +48,9 @@ public class SimplyArray<T> implements Iterable {
 
             @Override
             public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return (T) array[count++];
             }
         };
