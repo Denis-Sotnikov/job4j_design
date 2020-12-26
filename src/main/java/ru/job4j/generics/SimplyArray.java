@@ -7,7 +7,6 @@ import java.util.Objects;
 public class SimplyArray<T> implements Iterable {
     private Object[] array;
     private int index = 0;
-    private int count = 0;
 
     public SimplyArray(int count) {
         array = new Object[count];
@@ -41,6 +40,7 @@ public class SimplyArray<T> implements Iterable {
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
+            private int count = 0;
             @Override
             public boolean hasNext() {
                 return index > count;
@@ -67,5 +67,16 @@ public class SimplyArray<T> implements Iterable {
 //        for (int i = 0; i < data.index; i++) {
 //            System.out.println(data.get(i));
 //        }
+//        Iterator<Integer> it = data.iterator();
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
 //    }
 }
