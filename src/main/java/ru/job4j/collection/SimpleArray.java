@@ -19,9 +19,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void add(T model) {
-        if (!(index < array.length)) {
-            array = Arrays.copyOf(array, array.length + 10);
-        }
+        increasingArray();
         array[index] = model;
         index++;
         modCount++;
@@ -34,7 +32,7 @@ public class SimpleArray<T> implements Iterable<T> {
             private int saveCount = modCount;
             @Override
             public boolean hasNext() {
-                if (!(saveCount == modCount)) {
+                if (saveCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
                 return index > count;
@@ -49,6 +47,12 @@ public class SimpleArray<T> implements Iterable<T> {
             }
 
         };
+    }
+
+    private void increasingArray() {
+        if (!(index < array.length)) {
+            array = Arrays.copyOf(array, array.length + 10);
+        }
     }
 
     public static void main(String[] args) {
