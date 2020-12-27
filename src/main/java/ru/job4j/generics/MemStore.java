@@ -14,11 +14,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     @Override
     public boolean replace(String id, T model) {
         mem.set(looking(id), model);
-        if (mem.get(looking(model.getId())).equals(model)) {
-            return true;
-        } else {
-            return false;
-        }
+        return mem.get(looking(model.getId())).equals(model);
     }
 
     @Override
