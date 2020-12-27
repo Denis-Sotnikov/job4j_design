@@ -29,6 +29,7 @@ public class SimplyArray<T> implements Iterable {
     private void remove(int position) {
         Objects.checkIndex(position, index);
         System.arraycopy(array, position + 1, array, position, array.length - position - 1);
+        array[array.length-1] = null;
         index--;
     }
 
@@ -63,10 +64,11 @@ public class SimplyArray<T> implements Iterable {
 //        data.add(3);
 //        data.add(4);
 //        data.add(5);
-//        data.remove(4);
 //        for (int i = 0; i < data.index; i++) {
 //            System.out.println(data.get(i));
 //        }
+//        data.remove(4);
+//        System.out.println(data.get(3));
 //        Iterator<Integer> it = data.iterator();
 //        System.out.println(it.hasNext());
 //        System.out.println(it.next());
