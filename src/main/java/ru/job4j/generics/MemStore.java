@@ -13,8 +13,12 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean replace(String id, T model) {
-        T flag = mem.set(looking(id), model);
-        return flag != null;
+        mem.set(looking(id), model);
+        if (mem.get(looking(model.getId())).equals(model)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -32,7 +36,7 @@ public final class MemStore<T extends Base> implements Store<T> {
     }
 
     private Integer looking(String id) {
-        int indexForObject = -1;
+        Integer indexForObject = null;
         boolean flag = false;
         for (T m : mem) {
             if (m.getId().equals(id)) {
@@ -52,7 +56,8 @@ public final class MemStore<T extends Base> implements Store<T> {
         sd.delete("3");
         System.out.println(sd.findById("2").getId());
         System.out.println(sd.replace("2", new Role("5")));
-        System.out.println(sd.findById("5").getId());
+//        System.out.println(sd.findById("5").getId());
+//        System.out.println(sd.findById("3").getId());
     }
 
 }

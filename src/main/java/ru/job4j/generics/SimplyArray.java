@@ -29,7 +29,7 @@ public class SimplyArray<T> implements Iterable {
     private void remove(int position) {
         Objects.checkIndex(position, index);
         System.arraycopy(array, position + 1, array, position, array.length - position - 1);
-        array[array.length-1] = null;
+        array[array.length - 1] = null;
         index--;
     }
 
