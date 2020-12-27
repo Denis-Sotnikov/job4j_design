@@ -14,14 +14,13 @@ public class IteratorForEvenNumber implements Iterator<Integer> {
     @Override
     public boolean hasNext() {
         while (point < array.length) {
-            if (array[point] % 2 == 0){
+            if (array[point] % 2 == 0) {
                 return true;
             }
             point++;
         }
         return  false;
     }
-
 
     @Override
     public Integer next() {

@@ -12,15 +12,12 @@ public class MyLinkedList<T> implements Iterable {
     private transient Node<T> last;
     private int modCount = 0;
     private int saveCount = 0;
-    private transient Node<T> it;
-    private transient Node<T> buf;
 
     public void add(T value) {
         if (size == 0) {
             first = new Node<T>(null, value, null);
             last = first;
             first.next = first;
-            it = first;
         } else {
             last.next = new Node<T>(last, value, null);
             last = last.next;
@@ -40,37 +37,28 @@ public class MyLinkedList<T> implements Iterable {
     public Iterator iterator() {
         saveCount = modCount;
         return new Iterator<T>() {
+            private transient MyLinkedList.Node<T> it = first;
+            private transient MyLinkedList.Node<T> buf;
+            private Integer countGoBackParametr = 0;
             @Override
             public boolean hasNext() {
                 if (saveCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                if (it == null) {
-                    return false;
+                if (size > countGoBackParametr) {
+                    return it.item != null;
                 }
-                if (it.item != null) {
-                    return true;
-                }
-                while (it.item == null) {
-                    if (it.next != null) {
-                        it = it.next;
-                    } else {
-                        return false;
-                    }
-                }
-                return it.item != null;
+                return false;
             }
 
             @Override
             public T next() {
-                if (saveCount != modCount) {
-                    throw new ConcurrentModificationException();
-                }
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 buf = it;
                 it = it.next;
+                countGoBackParametr++;
                 return buf.item;
             }
         };
@@ -96,6 +84,8 @@ public class MyLinkedList<T> implements Iterable {
         list.add(4);
         //System.out.println(list.get(0));
         Iterator<Integer> raz = list.iterator();
+        System.out.println(raz.hasNext());
+        System.out.println("vozvrat = " + raz.next());
         System.out.println(raz.hasNext());
         System.out.println("vozvrat = " + raz.next());
         System.out.println(raz.hasNext());
