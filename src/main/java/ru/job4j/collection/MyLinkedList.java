@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements Iterable {
-    private transient int size = 0;
-    private transient Node<T> first;
-    private transient Node<T> last;
+    private int size = 0;
+    private Node<T> first;
+    private Node<T> last;
     private int modCount = 0;
     private int saveCount = 0;
 
