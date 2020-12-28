@@ -7,13 +7,11 @@ public class SimpleStack<T> {
     private ForwardLinked<T> linked = new ForwardLinked<T>();
 
     public T pop() {
-        Iterator<T> it = linked.iterator();
-        T value = null;
-        while (it.hasNext()) {
-            value = it.next();
+        T result = linked.deleteLastAndReturn();
+        if (result == null) {
+            throw new NoSuchElementException();
         }
-        linked.deleteLast();
-        return value;
+        return result;
     }
 
     public void push(T value) {
@@ -25,7 +23,12 @@ public class SimpleStack<T> {
         array.push(1);
         array.push(2);
         array.push(3);
-        array.pop();
+        System.out.println(array.pop());
+        System.out.println(array.pop());
+        System.out.println(array.pop());
+        System.out.println(array.pop());
+        System.out.println(array.pop());
+        System.out.println("----------------");
         Iterator<Integer> it = array.linked.iterator();
         System.out.println(it.hasNext());
         System.out.println(it.next());
