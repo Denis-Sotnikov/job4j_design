@@ -22,15 +22,11 @@ public class ListUtils {
         Objects.checkIndex(index, list.size());
         ListIterator<T> i = list.listIterator();
         while (i.hasNext()) {
+            i.next();
             if (i.nextIndex() == index + 1) {
-                System.out.println("Prisgel");
                 i.add(value);
                 break;
             }
-            i.next();
-        }
-        if ((list.size() - 1) == index) {
-            i.add(value);
         }
     }
 
