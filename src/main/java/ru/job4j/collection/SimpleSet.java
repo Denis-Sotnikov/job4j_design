@@ -30,16 +30,14 @@ public class SimpleSet<T> implements Iterable {
 //        array.add(10);
         Iterator<Integer> flag = array.iterator();
         System.out.println(flag.hasNext());
-        System.out.println(flag.next());
-        System.out.println(flag.hasNext());
-        System.out.println(flag.next());
-        System.out.println(flag.hasNext());
-        System.out.println(flag.next());
-        System.out.println(flag.hasNext());
-        System.out.println(flag.next());
-        System.out.println(flag.hasNext());
-        System.out.println(flag.next());
-
+//        System.out.println(flag.next());
+//        System.out.println(flag.hasNext());
+//        System.out.println(flag.next());
+//        System.out.println(flag.hasNext());
+//        System.out.println(flag.next());
+//        System.out.println(flag.hasNext());
+//        System.out.println(flag.next());
+//        System.out.println(flag.hasNext());
+//        System.out.println(flag.next());
     }
-
 }
