@@ -20,13 +20,30 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void revert() {
-        ForwardLinked out = new ForwardLinked();
-        T flag = null;
-            while ((flag = deleteLastAndReturn()) != null) {
-                out.add(flag);
+        if (head.next != null) {
+            Node<T> node = head;
+            Node<T> buf = head;
+            int count = 0;
+            while (count != 2) {
+                if (count == 0) {
+                    node = node.next;
+                    head = node;
+                    buf.next = null;
+                    count++;
+                } else {
+                    //дальше
+                    if (node.next != null) {
+                        node = node.next;
+                    } else {
+                        count = 2;
+                    }
+                    head.next = buf;
+                    buf = head;
+                    head = node;
+                }
             }
-            Iterator<T> it = out.iterator();
-            this.head = out.head;
+        }
+
     }
 
     public T deleteFirst() {
@@ -115,14 +132,26 @@ public class ForwardLinked<T> implements Iterable<T> {
         ForwardLinked<Integer> array = new ForwardLinked<>();
         array.add(1);
         array.add(2);
-        array.add(3);
+//        array.add(3);
+//        array.add(4);
+//        array.add(5);
+//        array.add(6);
+//        array.add(7);
+//        array.add(8);
         array.revert();
         Iterator<Integer> it = array.iterator();
 //            System.out.println(it.hasNext());
             System.out.println(it.next());
 //            System.out.println(it.hasNext());
             System.out.println(it.next());
-//            System.out.println(it.hasNext());
-            System.out.println(it.next());
+////            System.out.println(it.hasNext());
+//            System.out.println(it.next());
+//            System.out.println(it.next());
+//        System.out.println(it.next());
+////            System.out.println(it.hasNext());
+//        System.out.println(it.next());
+////            System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.next());
     }
 }
