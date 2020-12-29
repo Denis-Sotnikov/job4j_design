@@ -1,34 +1,53 @@
 package ru.job4j.collection;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
+    private int sizeOut = 0;
+    private int sizeIn = 0;
 
     public T poll() {
         T flag = null;
-        T flagForReturn = null;
-        int size = 0;
-        while ((flag = in.pop()) != null) {
-            flagForReturn = flag;
-            out.push(flag);
-            size++;
+        if (sizeOut == 0) {
+            if (sizeIn == 0) {
+                throw new NoSuchElementException();
+            } else {
+                while (sizeIn != 0) {
+                    if (sizeIn == 1) {
+                        flag = in.pop();
+                        sizeIn--;
+                    } else {
+                        flag = in.pop();
+                        out.push(flag);
+                        sizeIn--;
+                        sizeOut++;
+                    }
+
+                }
+            }
+        } else {
+            flag = out.pop();
+            sizeOut--;
         }
-        if (size == 0) {
-            throw new NoSuchElementException();
-        }
-        out.pop();
-        size--;
-        while (size != 0) {
-            in.push(out.pop());
-            size--;
-        }
-        return flagForReturn;
+        return flag;
     }
 
     public void push(T value) {
+        if (sizeIn == 0) {
+            if (sizeOut > 0) {
+                while (sizeOut != 0) {
+                    in.push(out.pop());
+                    sizeOut--;
+                    sizeIn++;
+                }
+            }
+        }
         in.push(value);
+        sizeIn++;
     }
 }
