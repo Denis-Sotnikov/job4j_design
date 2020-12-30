@@ -27,7 +27,6 @@ public class SimpleQueue<T> {
                         sizeIn--;
                         sizeOut++;
                     }
-
                 }
             }
         } else {
@@ -38,15 +37,6 @@ public class SimpleQueue<T> {
     }
 
     public void push(T value) {
-        if (sizeIn == 0) {
-            if (sizeOut > 0) {
-                while (sizeOut != 0) {
-                    in.push(out.pop());
-                    sizeOut--;
-                    sizeIn++;
-                }
-            }
-        }
         in.push(value);
         sizeIn++;
     }
