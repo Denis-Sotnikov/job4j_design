@@ -18,6 +18,11 @@ public class SimpleStack<T> {
         linked.add(value);
     }
 
+    boolean isEmpty() {
+        Iterator<T> it = linked.iterator();
+        return !it.hasNext();
+    }
+
     public static void main(String[] args) {
         SimpleStack<Integer> array = new SimpleStack<>();
         array.push(1);
