@@ -2,6 +2,7 @@ package ru.job4j.collection;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
@@ -43,7 +44,32 @@ public class ForwardLinked<T> implements Iterable<T> {
                 }
             }
         }
+    }
 
+    public void revertu() {
+        if (head.next != null) {
+            Node<T> curent = head;
+            Node<T> next = head;
+            Node<T> previous = head;
+            boolean flag = true;
+            while (flag) {
+                if (head.equals(curent)) {
+                    next = next.next;
+                    curent = next;
+                    previous.next = null;
+                } else {
+                    if (next.next != null) {
+                        next = next.next;
+                    } else {
+                        flag = false;
+                    }
+                    curent.next = previous;
+                    previous = curent;
+                    curent = next;
+                }
+            }
+            head = curent;
+        }
     }
 
     public T deleteFirst() {
@@ -136,21 +162,41 @@ public class ForwardLinked<T> implements Iterable<T> {
         ForwardLinked<Integer> array = new ForwardLinked<>();
         array.add(1);
         array.add(2);
-//        array.add(3);
-//        array.add(4);
+        array.add(3);
+        array.add(4);
 //        array.add(5);
 //        array.add(6);
 //        array.add(7);
 //        array.add(8);
-        array.revert();
+        array.revertu();
         Iterator<Integer> it = array.iterator();
 //            System.out.println(it.hasNext());
             System.out.println(it.next());
 //            System.out.println(it.hasNext());
             System.out.println(it.next());
-////            System.out.println(it.hasNext());
-//            System.out.println(it.next());
-//            System.out.println(it.next());
+//            System.out.println(it.hasNext());
+            System.out.println(it.next());
+            System.out.println(it.next());
+        System.out.println("---------------");
+            array.revertu();
+        it = array.iterator();
+//            System.out.println(it.hasNext());
+        System.out.println(it.next());
+//            System.out.println(it.hasNext());
+        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+        System.out.println(it.next());
+        System.out.println(it.next());
+        System.out.println("---------------");
+        array.revertu();
+        it = array.iterator();
+//            System.out.println(it.hasNext());
+        System.out.println(it.next());
+//            System.out.println(it.hasNext());
+        System.out.println(it.next());
+//        System.out.println(it.hasNext());
+        System.out.println(it.next());
+        System.out.println(it.next());
 //        System.out.println(it.next());
 ////            System.out.println(it.hasNext());
 //        System.out.println(it.next());
