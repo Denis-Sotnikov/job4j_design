@@ -11,10 +11,8 @@ public class SimpleQueue<T> {
                 flag = in.pop();
                     out.push(flag);
             }
-            return out.pop();
-        } else {
-            return out.pop();
         }
+        return out.pop();
     }
 
     public void push(T value) {
