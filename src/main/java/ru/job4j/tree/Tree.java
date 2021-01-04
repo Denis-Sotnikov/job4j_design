@@ -13,11 +13,14 @@ class Tree<E> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
+        System.out.println(findBy(child).isEmpty());
         Optional<Node<E>> point = findBy(parent);
-        if (!point.isEmpty()) {
-            rsl = true;
-            point.get().children.add(new Node(child));
-            return rsl;
+        if (findBy(child).isEmpty()) {
+            if (!point.isEmpty()) {
+                rsl = true;
+                point.get().children.add(new Node(child));
+                return rsl;
+            }
         }
         return rsl;
     }
@@ -44,7 +47,7 @@ class Tree<E> implements SimpleTree<E> {
         data.offer(this.root);
         while (!data.isEmpty()) {
             Node<E> el = data.poll();
-            if (el.children.size()>2) {
+            if (el.children.size() > 2) {
                 return false;
             }
             data.addAll(el.children);
