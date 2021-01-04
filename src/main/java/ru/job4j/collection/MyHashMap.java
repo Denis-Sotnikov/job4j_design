@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class MyHashMap<K, V> implements Iterable {
-    private ArrayForMap<K, V> array = new ArrayForMap<>(16);
+    private ArrayForMap<K, V> array = new ArrayForMap<>(2);
     private K key;
     private V val;
 
@@ -90,6 +90,7 @@ public class MyHashMap<K, V> implements Iterable {
         while (it.hasNext()) {
             System.out.println("it.next() = " + it.next());
         }
+        System.out.println("size = " + myMap.size());
     }
 }
 

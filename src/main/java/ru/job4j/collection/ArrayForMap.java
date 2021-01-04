@@ -52,7 +52,7 @@ public class ArrayForMap<K, T> implements Iterable<T> {
             Node[] arr = new Node[array.length * 2];
             for (int i = 0; i < array.length; i++) {
                 if (array[i] != null) {
-                    w = array[i].hashCode() % ((array.length) * 2);
+                    w = array[i].key.hashCode() % ((array.length) * 2);
                     System.out.println("w = " + w);
                     arr[w] = array[i];
                 }
