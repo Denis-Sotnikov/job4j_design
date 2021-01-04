@@ -13,7 +13,6 @@ class Tree<E> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        System.out.println(findBy(child).isEmpty());
         Optional<Node<E>> point = findBy(parent);
         if (findBy(child).isEmpty()) {
             if (!point.isEmpty()) {
@@ -42,7 +41,6 @@ class Tree<E> implements SimpleTree<E> {
     }
 
     public boolean isBinary() {
-        Optional<Node<E>> rsl = Optional.empty();
         Queue<Node<E>> data = new LinkedList<>();
         data.offer(this.root);
         while (!data.isEmpty()) {
