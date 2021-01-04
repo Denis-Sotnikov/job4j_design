@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class MyHashMap<K, V> implements Iterable {
-    private ArrayForMap<K, V> array = new ArrayForMap<>(2);
+    private ArrayForMap<K, V> array = new ArrayForMap<>(16);
     private K key;
     private V val;
 
