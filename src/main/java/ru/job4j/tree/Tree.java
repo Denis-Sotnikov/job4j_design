@@ -27,18 +27,11 @@ class Tree<E> implements SimpleTree<E> {
 
     @Override
     public Optional<Node<E>> findBy(E value) {
-        Optional<Node<E>> rsl = Optional.empty();
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.value.equals(value)) {
-                rsl = Optional.of(el);
-                break;
-            }
-            data.addAll(el.children);
-        }
-        return rsl;
+        return find(x -> x.value.equals(value));
+    }
+
+    public boolean isBinary() {
+        return !find(x -> x.children.size() > 2).isPresent();
     }
 
     public Optional<Node<E>> find(Predicate<Node<E>> point) {
@@ -54,32 +47,5 @@ class Tree<E> implements SimpleTree<E> {
             data.addAll(el.children);
         }
         return rsl;
-    }
-
-    public boolean findTrue(Predicate<Node<E>> point) {
-        Optional<Node<E>> rsl = Optional.empty();
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (point.test(el)) {
-                return true;
-            }
-            data.addAll(el.children);
-        }
-        return false;
-    }
-
-    public boolean isBinary() {
-        Queue<Node<E>> data = new LinkedList<>();
-        data.offer(this.root);
-        while (!data.isEmpty()) {
-            Node<E> el = data.poll();
-            if (el.children.size() > 2) {
-                return false;
-            }
-            data.addAll(el.children);
-        }
-        return true;
     }
 }
