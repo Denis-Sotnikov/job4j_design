@@ -34,7 +34,7 @@ public class LogFilter {
                         new FileOutputStream(file)
                 ))) {
             for (int i = 0; i < log.size(); i++) {
-                out.write(log.get(i) + "\n");
+                out.println(log.get(i));
             }
         } catch (Exception e) {
             e.printStackTrace();
