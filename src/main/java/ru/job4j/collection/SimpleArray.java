@@ -1,7 +1,5 @@
 package ru.job4j.collection;
 
-import org.w3c.dom.Node;
-
 import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
@@ -11,6 +9,10 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public SimpleArray() {
         array = new Object[10];
+    }
+
+    public SimpleArray(int val) {
+        array = new Object[val];
     }
 
     public T get(int position) {
@@ -23,6 +25,14 @@ public class SimpleArray<T> implements Iterable<T> {
         array[index] = model;
         index++;
         modCount++;
+    }
+
+    public void remove(int index) {
+        array[index] = null;
+    }
+
+    public int size() {
+        return array.length;
     }
 
     @Override
@@ -45,7 +55,6 @@ public class SimpleArray<T> implements Iterable<T> {
                     }
                     return (T) array[count++];
             }
-
         };
     }
 
