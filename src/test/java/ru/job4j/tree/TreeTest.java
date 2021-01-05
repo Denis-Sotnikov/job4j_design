@@ -21,6 +21,34 @@ public class TreeTest {
     }
 
     @Test
+    public void whenWeAreTestingMetodFind() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.find(x -> x.value.equals(18)).isPresent(),
+                is(false)
+        );
+    }
+
+    @Test
+    public void whenWeAreTestingMetodFindTrue() {
+        Tree<Integer> tree = new Tree<>(1);
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.findTrue(x -> x.value.equals(18)),
+                is(false)
+        );
+    }
+
+    @Test
     public void when6ElFindNotExitThenOptionEmpty() {
         Tree<Integer> tree = new Tree<>(1);
         tree.add(1, 2);
@@ -41,6 +69,34 @@ public class TreeTest {
         assertThat(
                 tree.isBinary(),
                 is(true)
+        );
+    }
+
+    @Test
+    public void whenIsFindBinaryWithMetodFindTrue() {
+        Tree<Integer> tree = new Tree<>(1);
+//        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.findTrue(x -> x.children.size() <= 2),
+                is(true)
+        );
+    }
+
+    @Test
+    public void whenIsFindBinaryWithMetodFind() {
+        Tree<Integer> tree = new Tree<>(1);
+//        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        tree.add(4, 5);
+        tree.add(5, 6);
+        assertThat(
+                tree.find(x -> x.children.size() > 2).isPresent(),
+                is(false)
         );
     }
 }
