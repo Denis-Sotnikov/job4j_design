@@ -1,10 +1,11 @@
 package ru.job4j.io;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,6 +15,10 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 public class AnalizyTest {
+
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     private List<String> listResult = new LinkedList<>();
     private List<String> listTest = new LinkedList<>();
 
@@ -24,11 +29,24 @@ public class AnalizyTest {
     }
 
     @Test
-    public void whenAnalysisJustCase() throws ParseException {
-        String path = "server.log";
-        String result = "UnavailableServer.log";
-        new Analizy().unavailable(path, result);
-        try (BufferedReader in = new BufferedReader(new FileReader(result))) {
+    public void when() throws ParseException, IOException {
+        File source = folder.newFile("source.txt");
+        File target = folder.newFile("target.txt");
+        try (PrintWriter out = new PrintWriter(source)) {
+            out.println("200 10:56:01\n"
+                    + "\n"
+                    + "200 10:57:01\n"
+                    + "\n"
+                    + "400 10:58:01\n"
+                    + "\n"
+                    + "200 10:59:01\n"
+                    + "\n"
+                    + "500 11:01:02\n"
+                    + "\n"
+                    + "200 11:02:02");
+        }
+        new Analizy().unavailable(source, target);
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
             List<String> linesis = new ArrayList<String>();
             in.lines().forEach(listResult::add);
         } catch (Exception e) {
