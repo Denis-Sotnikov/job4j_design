@@ -20,9 +20,11 @@ public class Config {
             e.printStackTrace();
         }
         for (String s : linesis) {
-            if (!s.startsWith("//") && s.contains("=")) {
+            if (!s.startsWith("#") && s.contains("=")) {
                 String[] points = s.split("=");
-                values.put(points[0], points[1]);
+                if (points.length <= 2) {
+                    values.put(points[0], points[1]);
+                }
             }
         }
     }
