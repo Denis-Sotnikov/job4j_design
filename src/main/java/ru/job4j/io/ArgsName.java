@@ -11,7 +11,7 @@ public class ArgsName {
         if (values.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        return values.get(key);
+         return values.get(key);
     }
 
     private void parse(String[] args) {
