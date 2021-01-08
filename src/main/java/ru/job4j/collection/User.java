@@ -83,8 +83,8 @@ public class User {
     }
 
     static final int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int h = 0;
+        return (key == null) ? 0 : (key.hashCode()) ^ (h >>> 16);
     }
 
     @Override
