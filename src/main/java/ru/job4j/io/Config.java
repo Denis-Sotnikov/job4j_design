@@ -13,19 +13,17 @@ public class Config {
     }
 
     public void load() {
-        List<String> linesis = new ArrayList<String>();
         try (BufferedReader in = new BufferedReader(new FileReader(path))) {
-            in.lines().forEach(linesis::add);
+            in.lines().forEach(s -> {
+                if (!s.startsWith("#") && s.contains("=") && !s.startsWith("//")) {
+                    String[] points = s.split("=");
+                    if (points.length <= 2) {
+                        values.put(points[0], points[1]);
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        for (String s : linesis) {
-            if (!s.startsWith("#") && s.contains("=")) {
-                String[] points = s.split("=");
-                if (points.length <= 2) {
-                    values.put(points[0], points[1]);
-                }
-            }
         }
     }
 
