@@ -13,6 +13,8 @@ public class EchoServer {
 
     public static void main(String[] args) {
         boolean flag = true;
+        String str = null;
+        int value = 0;
         int sign = 0;
         try {
             try (ServerSocket server = new ServerSocket(9000)) {
@@ -21,27 +23,39 @@ public class EchoServer {
                     try (OutputStream out = socket.getOutputStream();
                          BufferedReader in = new BufferedReader(
                                  new InputStreamReader(socket.getInputStream()))) {
-                        String str;
+                        String buf = null;
                         while ((in.ready())) {
-                            str = in.readLine();
-                            System.out.println(str);
-                            if (str.contains("?msg=Exit")) {
+                            buf = in.readLine();
+                            if (buf.contains("?msg=Exit")) {
                                 flag = false;
+                                str = buf;
                             }
-                            if (str.contains("?msg=Hello")) {
-                                out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                            if (buf.contains("?msg=Hello")) {
+                                value = 1;
+                                str = buf;
+                            } else {
+                                if (buf.contains("?msg=")) {
+                                    value = 2;
+                                    str = buf;
+                                }
+                            }
+                        }
+                        if (value == 0) {
+                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                        } else {
+                            if (value == 1) {
+                                out.write("HTTP/1.1 200 OK\r\n".getBytes());
                                 out.write("Hello, dear friend. \r\n".getBytes());
                             } else {
-                                if (str.contains("?msg=")) {
+                                if (value == 2) {
+                                    System.out.println(str);
                                     out.write("HTTP/1.1 200 OK\r\n".getBytes());
-                                    System.out.println(str.split("msg=")[1]);
                                     out.write((str.split("msg=")[1]
                                             .split(" ")[0] + "\r\n").getBytes());
                                 }
                             }
                         }
-                        out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                       out.write("Hello, dear friend.".getBytes());
+
                     }
                 }
             }
