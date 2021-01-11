@@ -1,43 +1,40 @@
 package ru.job4j.collection;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Info info = new Info();
-        boolean flag = true;
-        for (User user : previous) {
-            flag = true;
-            for (User s : current) {
-                if (user.id == s.id) {
-                    flag = false;
-                    if (user.name != s.name) {
-                        info.changed++;
-                    }
-                }
-            }
-            if (flag) {
-                info.deleted++;
+        Map<Integer, User> mapaForUserPrevious = previous.stream()
+                .collect(Collectors.toMap(k -> k.id, k -> k));
+        Map<Integer, User> mapaForUserCurrent = current.stream()
+                .collect(Collectors.toMap(k -> k.id, v -> v));
+
+        for (User s : current) {
+            if (!mapaForUserPrevious.containsKey(s.id)) {
+                info.added++;
             }
         }
 
-        for (User user : current) {
-            flag = true;
-            for (User s : previous) {
-                if (user.id == s.id) {
-                    flag = false;
+        for (User s : previous) {
+            if (mapaForUserCurrent.containsKey(s.id)) {
+                System.out.println(s.id + " " + s.name);
+                if (!s.name.equals(mapaForUserCurrent.get(s.id).name)) {
+                    info.changed++;
                 }
-            }
-            if (flag) {
-                info.added++;
+            } else {
+                info.deleted++;
             }
         }
         return info;
     }
 
     public static class User {
-        private int id;
+        private Integer id;
         private String name;
 
         public User() {
@@ -79,7 +76,7 @@ public class Analize {
         }
     }
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        List<User> first = new ArrayList<>();
 //        first.add(new User(1,"Sergey"));
 //        first.add(new User(2,"Vadim"));
@@ -100,5 +97,5 @@ public class Analize {
 //        second.add(new User(10,"Polina"));
 //        Info info = new Analize().diff(first, second);
 //        System.out.println(info);
-//    }
+    }
 }
