@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+    private List<String> dialogWithBot = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private final String path;
@@ -21,15 +23,14 @@ public class ConsoleChat {
     }
 
     public void run() {
-        try (BufferedWriter out = new BufferedWriter(
-                new FileWriter(path, Charset.forName("WINDOWS-1251"), true))) {
             load(botAnswers);
             boolean flag = true;
             boolean answer = true;
             while (flag) {
                 String value = scanner.nextLine();
-                out.write(value + System.lineSeparator());
+                dialogWithBot.add(value);
                 if (value.equals(OUT)) {
+                    writeDialog(dialogWithBot, "dialogWithBot.txt");
                     return;
                 }
                 if (value.equals(STOP)) {
@@ -41,12 +42,9 @@ public class ConsoleChat {
                 if (answer) {
                     String point = answers.get((int) (Math.random() * 10));
                     System.out.println(point);
-                    out.write(point + System.lineSeparator());
+                    dialogWithBot.add(point);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void load(String pathAnswers) {
@@ -54,6 +52,17 @@ public class ConsoleChat {
                 BufferedReader in = new BufferedReader(
                         new FileReader(pathAnswers, Charset.forName("WINDOWS-1251")))) {
             in.lines().forEach(s -> answers.add(s));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeDialog(List<String> values, String s) {
+        try (BufferedWriter out = new BufferedWriter(
+                new FileWriter(s, Charset.forName("WINDOWS-1251"), true))) {
+            for (String w : values) {
+                out.write(w + System.lineSeparator());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
