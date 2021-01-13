@@ -26,6 +26,7 @@ public class EchoServer {
                         String buf = null;
                         while ((in.ready())) {
                             buf = in.readLine();
+                            System.out.println(buf);
                             if (buf.contains("?msg=Exit")) {
                                 flag = false;
                                 str = buf;
@@ -39,28 +40,24 @@ public class EchoServer {
                                     str = buf;
                                 }
                             }
+                            if (buf.contains("?msg=")) {
+                                break;
+                            }
                         }
-                        if (value == 0) {
-                            out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                        } else {
-                            if (value == 1) {
-                                out.write("HTTP/1.1 200 OK\r\n".getBytes());
+                        out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                        if (value == 1) {
                                 out.write("Hello, dear friend. \r\n".getBytes());
                             } else {
                                 if (value == 2) {
-                                    System.out.println(str);
-                                    out.write("HTTP/1.1 200 OK\r\n".getBytes());
                                     out.write((str.split("msg=")[1]
                                             .split(" ")[0] + "\r\n").getBytes());
                                 }
                             }
                         }
-
                     }
                 }
-            }
-        } catch (IOException e) {
-            LOG.error("Exception in log example", e);
+            } catch (IOException ioException) {
+            LOG.error("Exception in log example", ioException);
         }
     }
 }
