@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.sql.*;
 import java.util.Properties;
 
-import static ru.job4j.jdbc.StatementDemo.getTableScheme;
-
 public class TableEditor implements AutoCloseable {
 
     private Connection connection;
