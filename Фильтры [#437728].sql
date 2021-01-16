@@ -37,8 +37,11 @@ insert into product(name, expired_date, price, type_id) VALUES ('Нарезно�
 
 select * from product join type t on product.type_id = t.id where t.name like '%сыр%';
 select * from product where name like '%мороженное%';
-select * from product where extract(year from expired_date) = extract(year from now() + interval '1 month') and extract(month from expired_date) = extract(month from now() + interval '1 month');
+
+select * from product where extract(month from expired_date) = extract(month from now() + interval '1 month');
+
 select * from product where date_trunc('month', expired_date) = date_trunc('month',now() + interval '1 month');
+
 select * from product where product.price = (SELECT MAX(product.price) FROM product);
 
 select t.name as название, count(product.name) as количество from product join type t on product.type_id = t.id group by t.name;
