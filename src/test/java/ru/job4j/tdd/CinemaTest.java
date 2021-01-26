@@ -38,18 +38,23 @@ public class CinemaTest {
         Cinema cinema = new Cinema3D();
         Calendar date = Calendar.getInstance();
         date.set(2020, 10, 10, 23, 00);
-
+        Ticket ticket = cinema.buy(account, 1, 1, date); // выпадет исключение
+        assertThat(ticket, is(new Ticket3D()));
     }
 
     @Test(expected = MyExceptionWhenThisCinemaHaveAlreadyBeenHere.class)
     public void whenThisCinemaHaveAlreadyBeenHere() {
         Cinema cinema = new Cinema3D();
         cinema.add(new Session3D());
-
+        Cinema cinema2 = new Cinema3D();
+        cinema.add(new Session3D()); // выпадет исключение так как пытаемся добавить дубль объекта.
+        List<Session> sessions = cinema.find(session -> true);
+        assertThat(sessions, is(Arrays.asList(new Session3D())));
     }
 
     @Test(expected = MyExceptionWhenSuchSessionDoesNotExist.class)
     public void whenSuchSessionDoesNotExist() {
-        List<Session> sessions = cinema.find(session -> true);
+        List<Session> sessions = cinema.find(session -> true); // выпадет исключение - нет такого сеанса
+        assertThat(sessions, is(Arrays.asList(new Session3D())));
     }
 }
