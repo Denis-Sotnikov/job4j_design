@@ -20,6 +20,13 @@ public class Food {
         this.discount = discount;
     }
 
+    public static int percent(Food food) {
+        long interval = food.getExpiryDate().getTime() - food.getCreateDate().getTime();
+        return Math.toIntExact(((interval - (
+                new Date().getTime() - food.getCreateDate().getTime())) * 100)
+                / interval);
+    }
+
     public String getName() {
         return name;
     }

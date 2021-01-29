@@ -1,64 +1,36 @@
 package ru.job4j.ood.storagefood;
 
-import com.google.gson.internal.bind.util.ISO8601Utils;
-
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
-import java.util.function.DoubleToIntFunction;
+import java.util.List;
 
 public class ControllQuality {
-    private Place place;
+    private final List<Storage> storages = new ArrayList<>();
 
-    public Place consider(Food food) {
-        System.out.println("here");
-        int percent = percent(food);
-        System.out.println("here1");
-        System.out.println(percent);
-        if (percent > 75) {
-            System.out.println("here2");
-            sentTo(food, new Warehouse());
-        } else {
-            if (percent > 25 && percent < 75) {
-                sentTo(food, new Shop());
-            } else {
-                if (percent < 25) {
-                    food.setDiscount(30);
-                    sentTo(food, new Shop());
-                } else {
-                    if (percent == 0) {
-                        sentTo(food, new Trash());
-                    }
-                }
+    private void distibute(Food food) {
+        for (Storage s : storages) {
+            if (s.accept(food)) {
+                s.add(food);
             }
         }
-        return this.place;
-    }
-
-    private void sentTo(Food food, Place place) {
-        this.place = place;
-        place.add(food);
-    }
-
-    private int percent(Food food) {
-        long interval = food.getExpiryDate().getTime() - food.getCreateDate().getTime();
-        System.out.println(interval);
-        return Math.toIntExact(((interval - (
-                new Date().getTime() - food.getCreateDate().getTime())) * 100)
-                / interval);
     }
 
     public static void main(String[] args) {
+        Shop shop = new Shop();
+        Trash trash = new Trash();
+        Warehouse warehouse = new Warehouse();
         ControllQuality controllQuality = new ControllQuality();
-        Milk milk = new Milk("milk", new Date(new Date().getTime() + 14400000), new Date(), 100, 0);
-        System.out.println(controllQuality
-                .consider(milk).getClass().getName());
-        for (Map.Entry<String, Map<Integer, Food>> v
-                : controllQuality.consider(milk).mapaFood.entrySet()) {
-            System.out.println(v.getKey() + " " + v.getValue().size());
-            for (Map.Entry<Integer, Food> w : v.getValue().entrySet()) {
-                System.out.println(w.getKey() + " " + w.getValue());
-            }
+        controllQuality.storages.add(shop);
+        controllQuality.storages.add(trash);
+        controllQuality.storages.add(warehouse);
+        Milk milk = new Milk("milk", new Date(new Date().getTime() + 100000000),
+                new Date(new Date().getTime() - 2100000000), 100, 0);
+        Milk chocolate = new Milk("chocolate", new Date(new Date().getTime() + 864000000),
+                new Date(), 150, 0);
+        controllQuality.distibute(milk);
+        controllQuality.distibute(chocolate);
+        for (Storage storage : controllQuality.storages) {
+            System.out.println(storage.toString());
         }
     }
-
 }
