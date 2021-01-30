@@ -27,7 +27,7 @@ public class CashFirst implements CashByReference {
 
     @Override
     public String get(String key) throws IOException {
-        if (cache.containsKey(key)) {
+        if (cache.containsKey(key) && cache.get(key).get() != null) {
             return cache.get(key).get();
         } else {
             return reader.reader(key, path);
