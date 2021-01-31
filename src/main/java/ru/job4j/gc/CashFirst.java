@@ -27,15 +27,20 @@ public class CashFirst implements CashByReference {
 
     @Override
     public String get(String key) throws IOException {
+        String s = new String();
         if (cache.containsKey(key) && cache.get(key).get() != null) {
-            return cache.get(key).get();
+            s = cache.get(key).get();
+            if (s != null) {
+                return s;
+            }
         } else {
-            return reader.reader(key, path);
+            s = reader.reader(key, path);
         }
+        return s;
     }
 
     public static void main(String[] args) throws IOException {
         CashFirst a = new CashFirst("c:/disk/");
-        System.out.println(a.get("first.txt"));
+        System.out.println(a.get("second.txt"));
     }
 }
