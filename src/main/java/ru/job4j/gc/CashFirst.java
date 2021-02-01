@@ -30,14 +30,13 @@ public class CashFirst implements CashByReference {
         String s = new String();
         if (cache.containsKey(key) && cache.get(key).get() != null) {
             s = cache.get(key).get();
-            if (s != null) {
-                return s;
-            } else {
+            if (s == null) {
                 s = reader.reader(key, path);
             }
         } else {
             s = reader.reader(key, path);
         }
+        cache.put(key, new SoftReference<>(s));
         return s;
     }
 
