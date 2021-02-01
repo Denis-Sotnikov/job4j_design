@@ -1,6 +1,6 @@
 package ru.job4j.ood.parkforcar;
 
-public interface Parkforcar {
+public interface Park {
     int putCar(Car car);
 
     int removeTheCar(Car car);
