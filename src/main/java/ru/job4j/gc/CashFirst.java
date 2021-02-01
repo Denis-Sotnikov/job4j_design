@@ -35,8 +35,9 @@ public class CashFirst implements CashByReference {
             }
         } else {
             s = reader.reader(key, path);
+            cache.put(key, new SoftReference<>(s));
         }
-        cache.put(key, new SoftReference<>(s));
+
         return s;
     }
 
