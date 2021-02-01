@@ -7,9 +7,10 @@ package ru.job4j.ood.lsp;
 //расчета колонн из стали С235. А это нарушает принцип Liskov.
 
 public class Colomn {
-    private boolean calculation(Briсk briсk) {
-        Double g = n / a;
-        return g <= 1200;
+    private boolean calculation(Brick b) {
+        //Double g = n / a;
+        int g = 1500 / 5;
+        return true;
     }
 }
 
