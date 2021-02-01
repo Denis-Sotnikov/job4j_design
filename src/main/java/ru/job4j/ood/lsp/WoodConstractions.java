@@ -5,7 +5,8 @@ package ru.job4j.ood.lsp;
 //Его наследник, класс WoodConstractionsFirst отличается тем, что не имеет
 //валидацию антипирена. Это нарушает принцип Liskov
 public class WoodConstractions {
-    private boolean setAntipiren(Antipiren antipiren) {
-        return validation(antipiren);
-    }
+//    private boolean setAntipiren(Antipiren antipiren) {
+//        return validation(antipiren);
+//    }
+    private int val;
 }
