@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Calendar;
 
 public class ReportEngineTest {
+
     private String toHtml(String val) {
         String head = "<!DOCTYPE html>\n"
                 + "<html lang=\"en\">\n"
@@ -24,7 +25,6 @@ public class ReportEngineTest {
         builder.append(head).append(body);
         return builder.toString();
     }
-
 
     @Test
     public void whenOldGenerated() {
@@ -45,24 +45,62 @@ public class ReportEngineTest {
     }
 
     @Test
-    public void whenNeGenerated() {
+    public void whenReportForBuhgalter() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report report = new ReportForBuhgalter();
+        ReportEngine engine = new ReportEngine(store, report);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Hired; Fired; Salary;")
+                .append(System.lineSeparator())
+                .append(worker.getName()).append(";")
+                .append(worker.getHired()).append(";")
+                .append(worker.getFired()).append(";")
+                .append(worker.getSalary() * 2).append(";")
+                .append(System.lineSeparator());
+        assertThat(engine.getReport().generate(em -> true, store), is(expect.toString()));
+    }
+
+    @Test
+    public void whenGeneratedforHr() {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
         Employee worker1 = new Employee("Masha", now, now, 200);
         store.add(worker);
         store.add(worker1);
-        ReportEngine engine = new ReportEngine(store);
+        Report report = new ReportForHr();
+        ReportEngine engine = new ReportEngine(store, report);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
                 .append(worker1.getName()).append(";")
-                .append(worker1.getSalary() * 2).append(";")
+                .append(worker1.getSalary()).append(";")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")
-                .append(worker.getSalary() * 2).append(";")
+                .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
-        System.out.println(engine.newGenerate(em -> true));
-        assertThat(engine.newGenerate(em -> true), is(toHtml(expect.toString())));
+        assertThat(engine.getReport().generate(em -> true, store), is(expect.toString()));
+    }
+
+    @Test
+    public void whenReportForIt() {
+        MemStore store = new MemStore();
+        Calendar now = Calendar.getInstance();
+        Employee worker = new Employee("Ivan", now, now, 100);
+        store.add(worker);
+        Report report = new ReportForIt();
+        ReportEngine engine = new ReportEngine(store, report);
+        StringBuilder expect = new StringBuilder()
+                .append("Name; Hired; Fired; Salary;")
+                .append(System.lineSeparator())
+                .append(worker.getName()).append(";")
+                .append(worker.getHired()).append(";")
+                .append(worker.getFired()).append(";")
+                .append(worker.getSalary()).append(";")
+                .append(System.lineSeparator());
+        assertThat(engine.getReport().generate(em -> true, store), is(toHtml(expect.toString())));
     }
 }
