@@ -1,11 +1,13 @@
 package ru.job4j.io.searchbycriteria;
 
+import ru.job4j.io.SearchFiles;
+
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-
-import static ru.job4j.io.searchbycriteria.Args.searchIndex;
+import java.util.function.Predicate;
 
 public class SearchByCriteria {
 
@@ -13,59 +15,19 @@ public class SearchByCriteria {
     }
 
     public static void main(String[] args) throws Exception {
-            Args argsArgum = new Args(args);
+            SearchByCriteria criteria = new SearchByCriteria();
             PredicateFactory factory = new PredicateFactory();
-            ResultWriter resultWriter = new ResultWriter();
-            List<Path> list = new ArrayList<>();
-            Path start = Paths.get(argsArgum.searchArgument("-d"));
-            String val = argsArgum.searchArgument("-n");
-            switch (caseChoice(args)) {
-                case 1:
-                    list = factory.search(
-                            start,
-                            val,
-                            p -> p.toFile().getName().endsWith(val));
-                    break;
-                case 2:
-                    list = factory.search(
-                            start,
-                            val,
-                            p -> p.toFile().getName().equals(val));
-                    break;
-                case 3:
-                    list = factory.search(
-                            start,
-                            val,
-                            p -> p.toFile().getName().matches(val));
-                    break;
-                default:
-                    System.out.println("Error");
-            }
-            ResultWriter.writeToFile(argsArgum.searchArgument("-o"), list);
+            factory.readArgsToMap(args);
+            Path start = Paths.get(factory.getArgsMap().get("-d"));
+            List<Path> list = criteria
+                    .search(start, factory.createPredicat());
+            ResultWriter.writeToFile(factory.getArgsMap().get("-o"), list);
         }
 
-        private static int caseChoice(String[] array) throws Exception {
-            try {
-                if (searchIndex("-m", array) != 0) {
-                    return 1;
-                }
-            } catch (Exception e) {
-                //e.printStackTrace(); Печатаем в log
-            }
-            try {
-                if (searchIndex("-f", array) != 0) {
-                    return 2;
-                }
-            } catch (Exception e) {
-                //e.printStackTrace(); Печатаем в log
-            }
-            try {
-                if (searchIndex("-r", array) != 0) {
-                    return 3;
-                }
-            } catch (Exception e) {
-                //e.printStackTrace(); Печатаем в log
-            }
-            throw new Exception();
-        }
+    public List<Path> search(Path root, Predicate<Path> predicate) throws IOException {
+        SearchFiles searcher = new SearchFiles(predicate);
+        Files.walkFileTree(root, searcher);
+        return searcher.getPaths();
+    }
 }
+

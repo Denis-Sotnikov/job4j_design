@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import static ru.job4j.io.searchbycriteria.Args.searchIndex;
-
 public class ResultWriter {
 
     protected static void writeToFile(
