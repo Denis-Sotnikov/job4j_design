@@ -9,7 +9,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-public class Main {
+public class Sain {
     public static void main(String[] args) throws Exception {
         Home home = new Home(
                 "new Earth", 2, true, new IngenerSolutions(
