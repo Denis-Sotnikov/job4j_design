@@ -27,17 +27,11 @@ public class CashFirst implements CashByReference {
 
     @Override
     public String get(String key) throws IOException {
-        String s = new String();
-        if (cache.containsKey(key) && cache.get(key).get() != null) {
-            s = cache.get(key).get();
-            if (s == null) {
-                s = reader.reader(key, path);
-            }
-        } else {
+        String s = cache.getOrDefault(key, new SoftReference<String>("")).get();
+        if (s.length() == 0) {
             s = reader.reader(key, path);
             cache.put(key, new SoftReference<>(s));
         }
-
         return s;
     }
 
