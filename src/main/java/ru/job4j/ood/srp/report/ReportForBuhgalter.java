@@ -1,6 +1,5 @@
-package ru.job4j.ood.srp;
+package ru.job4j.ood.srp.report;
 
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 public class ReportForBuhgalter implements Report {
