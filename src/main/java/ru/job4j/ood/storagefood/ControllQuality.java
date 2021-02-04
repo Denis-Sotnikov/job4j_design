@@ -16,6 +16,16 @@ public class ControllQuality {
         }
     }
 
+    public void dynamicReallocation(List<Storage> listStorage) {
+        List<Food> ar = new ArrayList<>();
+        for (Storage storage : listStorage) {
+            ar.addAll(storage.clear());
+        }
+        for (Food food : ar) {
+            this.distibute(food);
+        }
+    }
+
     public static void main(String[] args) {
         Shop shop = new Shop();
         Trash trash = new Trash();
@@ -30,8 +40,15 @@ public class ControllQuality {
                 new Date(), 150, 0);
         controllQuality.distibute(milk);
         controllQuality.distibute(chocolate);
+
+        System.out.println();
+
+        List<Food> ar = new ArrayList<>();
+        controllQuality.dynamicReallocation(controllQuality.storages);
+
         for (Storage storage : controllQuality.storages) {
-            System.out.println(storage.toString());
+            System.out.println(storage);
         }
+
     }
 }

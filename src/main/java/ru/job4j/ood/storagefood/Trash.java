@@ -27,6 +27,7 @@ public class Trash implements Storage {
     public List<Food> clear() {
         List<Food> foodList = new ArrayList<>(foodMap.values());
         foodMap.clear();
+        index = 0;
         return foodList;
     }
 
