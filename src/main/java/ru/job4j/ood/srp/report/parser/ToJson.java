@@ -1,10 +1,9 @@
 package ru.job4j.ood.srp.report.parser;
 
-public class ToJson implements ReportToFormat{
-
+public class ToJson implements ReportToFormat {
     @Override
     public String toFormat(String val) {
-        String ds = val.substring(0, val.indexOf(System.lineSeparator()));
+        String ds = val.substring(0, val.indexOf(System.lineSeparator()) - 1);
         String[] namesOfFields = ds.split("; ");
         String[] array = val.split("Salary;" + System.lineSeparator());
         String[] arrayFirst = array[1].replaceAll(System.lineSeparator(), "").split(";");
