@@ -3,6 +3,8 @@ package ru.job4j.ood.srp;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.is;
 import org.junit.Test;
+import ru.job4j.ood.srp.report.*;
+
 import java.util.Calendar;
 
 public class ReportEngineTest {
@@ -41,7 +43,8 @@ public class ReportEngineTest {
                 .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
-        assertThat(engine.generate(em -> true), is(expect.toString()));
+        System.out.println(expect);
+        assertThat(engine.generate(em -> true, store), is(expect.toString()));
     }
 
     @Test

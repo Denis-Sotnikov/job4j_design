@@ -18,13 +18,10 @@ public class GCDemo {
 
     public static void main(String[] args) {
         info();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             new User(i, "N" + i);
         }
-        //System.gc();
-        info();
-
+        System.gc();
         info();
     }
-
 }

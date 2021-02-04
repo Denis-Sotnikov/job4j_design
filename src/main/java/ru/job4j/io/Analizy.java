@@ -1,6 +1,11 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.*;
 import java.text.ParseException;
 import java.util.*;
 
@@ -47,8 +52,33 @@ public class Analizy {
 return builder.toString();
     }
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, IOException {
         Analizy analizy = new Analizy();
+File file = new File("c:\\sdasd.txt");
+//        Files.createFile(Paths.get("c:\\sdasd.txt"));
+//        Files.createDirectory(Paths.get("c:\\sdasd.txt"));
+//        BufferedWriter w = new BufferedWriter(new FileWriter(file));
+//        w.write("Hello");
+//        BufferedWriter x =  Files.newBufferedWriter(Paths.get("c:\\sdasd.txt"));
+//        //x.write();
+//        w.close();
+//        //BasicFileAttributes v = Files.readAttributes(file, "*");
+//        BasicFileAttributeView basicView =
+//                Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class);
+//        BasicFileAttributes basicAttribs = basicView.readAttributes();
+//        System.out.println(basicAttribs.creationTime());
+//        System.out.println(basicAttribs.lastModifiedTime());
+//
+//        Files.setAttribute(
+//                file.toPath(), "lastAccessTime", FileTime.fromMillis(new Date().getTime()));
+//
+//        Files.setAttribute(
+//                file.toPath(), "lastAccessTime", FileTime.fromMillis(new Date().getTime()));
+//
+//        Files.setAttribute(
+//                file.toPath(), "creationTime", new Date().getTime());
+//        System.out.println(basicAttribs.lastModifiedTime());
+//        System.out.println(basicAttribs.creationTime());
         analizy.unavailable(new File("server.log"), new File("resultAnalizy.log"));
     }
 }

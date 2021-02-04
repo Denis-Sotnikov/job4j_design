@@ -1,6 +1,8 @@
 package ru.job4j.io;
 
-import java.io.IOException;
+import java.io.*;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -9,6 +11,9 @@ import java.util.List;
 public class Search {
     public static void main(String[] args) throws IOException {
         Path start = Paths.get(args[0]);
+        RuntimeMXBean runtimeMxBean = ManagementFactory.getRuntimeMXBean();
+        List<String> arguments = runtimeMxBean.getInputArguments();
+        System.out.println(arguments.toString());
         search(start, args[1]).forEach(System.out::println);
     }
 
@@ -17,4 +22,5 @@ public class Search {
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }
+
 }

@@ -1,16 +1,12 @@
 package ru.job4j.ood.srp.report;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import netscape.javascript.JSObject;
 import ru.job4j.ood.srp.report.parser.ReportToFormat;
-import ru.job4j.ood.srp.report.parser.ToHtml;
 import ru.job4j.ood.srp.report.parser.ToJson;
 
 import java.util.Calendar;
 import java.util.function.Predicate;
 
-public class ReportEngine {
+public class ReportEngine implements Report {
 
     private Report report;
     private Store store;

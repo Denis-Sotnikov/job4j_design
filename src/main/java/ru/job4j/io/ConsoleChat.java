@@ -2,7 +2,6 @@ package ru.job4j.io;
 
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

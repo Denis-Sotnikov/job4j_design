@@ -1,5 +1,9 @@
 package ru.job4j.collection;
 
+import java.io.*;
+import java.io.Console;
+import java.nio.CharBuffer;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +73,7 @@ public class Analize {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         List<User> first = new ArrayList<>();
         first.add(new User(1, "Sergey"));
         first.add(new User(2, "Vadim"));
@@ -90,5 +94,15 @@ public class Analize {
         second.add(new User(10, "Polina"));
         Info info = new Analize().diff(first, second);
         System.out.println(info);
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//        reader.readLine();
+        System.console().readLine();
+        Console c = System.console();
+//        Reader reader1 = console.reader();
+//        reader1.read(CharBuffer.wrap("про"));
+        //System.out.println(reader1.read());
+       String a = c.readLine("User name:");
+        new DataInputStream(new FileInputStream(new File("")));
+       //
     }
 }

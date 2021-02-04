@@ -3,6 +3,7 @@ package ru.job4j.jdbc;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.*;
+import java.util.Comparator;
 import java.util.Properties;
 
 public class TableEditor implements AutoCloseable {
@@ -108,16 +109,19 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        File file = new File("app.properties");
-        Properties properties = new Properties();
-        properties.load(new FileReader(file));
-        TableEditor tableEditor = new TableEditor(properties);
+        Integer w = 5;
+        Integer was = 10;
+        System.out.println(w.compareTo(was));
+//        File file = new File("app.properties");
+//        Properties properties = new Properties();
+//        properties.load(new FileReader(file));
+//        TableEditor tableEditor = new TableEditor(properties);
         //tableEditor.createTable("just_do_it");
 
         //tableEditor.dropTable("just_do_it");
         //tableEditor.addColumn("just_do_it", "For_first", "varchar(255)");
         //tableEditor.dropColumn("just_do_it", "For_first");
-        tableEditor.renameColumn("just_do_it", "For_first", "for_second");
+        //tableEditor.renameColumn("just_do_it", "For_first", "for_second");
 
 //        try (Connection connection = getConnection()) {
 //            try (Statement statement = connection.createStatement()) {
@@ -127,7 +131,7 @@ public class TableEditor implements AutoCloseable {
 //                        "name varchar(255)"
 //                );
 //                statement.execute(sql);
-                System.out.println(tableEditor.getScheme("just_do_it"));
+                //System.out.println(tableEditor.getScheme("just_do_it"));
             }
         //}
     }

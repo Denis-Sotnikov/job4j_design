@@ -29,6 +29,7 @@ public class CashFirst implements CashByReference {
     public String get(String key) throws IOException {
         String s = cache.getOrDefault(key, new SoftReference<String>("")).get();
         if (s.length() == 0) {
+            System.out.println("here");
             s = reader.reader(key, path);
             cache.put(key, new SoftReference<>(s));
         }
@@ -37,6 +38,7 @@ public class CashFirst implements CashByReference {
 
     public static void main(String[] args) throws IOException {
         CashFirst a = new CashFirst("c:/disk/");
-        System.out.println(a.get("second.txt"));
+        System.out.println(a.get("clear.txt"));
+        System.out.println(a.get("clear.txt"));
     }
 }
