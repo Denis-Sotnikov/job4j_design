@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.is;
 import org.junit.Test;
 import ru.job4j.ood.srp.report.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ReportEngineTest {
@@ -77,7 +79,7 @@ public class ReportEngineTest {
         Report report = new ReportForHr();
         ReportEngine engine = new ReportEngine(store, report);
         StringBuilder expect = new StringBuilder()
-                .append("Name; Hired; Fired; Salary;")
+                .append("Name; Salary;")
                 .append(System.lineSeparator())
                 .append(worker1.getName()).append(";")
                 .append(worker1.getSalary()).append(";")
@@ -93,6 +95,7 @@ public class ReportEngineTest {
         MemStore store = new MemStore();
         Calendar now = Calendar.getInstance();
         Employee worker = new Employee("Ivan", now, now, 100);
+        DateFormat df = new SimpleDateFormat("dd MMM yyy");
         store.add(worker);
         Report report = new ReportForIt();
         ReportEngine engine = new ReportEngine(store, report);
@@ -100,10 +103,10 @@ public class ReportEngineTest {
                 .append("Name; Hired; Fired; Salary;")
                 .append(System.lineSeparator())
                 .append(worker.getName()).append(";")
-                .append(worker.getHired()).append(";")
-                .append(worker.getFired()).append(";")
+                .append(df.format(worker.getHired().getTime())).append(";")
+                .append(df.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary()).append(";")
                 .append(System.lineSeparator());
-        assertThat(engine.getReport().generate(em -> true, store), is(toHtml(expect.toString())));
+        assertThat(toHtml(engine.getReport().generate(em -> true, store)), is(toHtml(expect.toString())));
     }
 }

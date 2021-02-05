@@ -48,7 +48,5 @@ public class ReportForIt implements Report {
         ReportForIt reportFor = new ReportForIt(memStore, reportToFormat);
 
         reportFor.generate(employee -> true, reportFor.store);
-
-       // System.out.println(engine.toFormat.toFormat(report));
     }
 }
