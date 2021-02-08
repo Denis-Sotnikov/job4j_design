@@ -1,5 +1,7 @@
 package ru.job4j.tictacoe;
 
+import ru.job4j.tictacoe.interfaice.Output;
+
 import java.io.IOException;
 
 public class Game {
@@ -7,10 +9,10 @@ public class Game {
         ReadPosition readPosition = new ReadPosition();
         PlayerForConsole one = new PlayerForConsole(true, readPosition);
         PlayerForConsole two = new PlayerForConsole(false, readPosition);
-        BoardForConsole board = new BoardForConsole();
+        Output output = new OutputForConsole();
+        BoardForConsole board = new BoardForConsole(output);
         RulesForConsole rules = new RulesForConsole();
-        ConsoleMarkX markX = new ConsoleMarkX();
-        ConsoleMarkO markO = new ConsoleMarkO();
+
 
         boolean flag = false;
         while (!flag) {
